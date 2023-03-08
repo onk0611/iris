@@ -175,3 +175,38 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+function do_shortcode_form() {
+    if (isset($_POST['submit'])) {
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST['email'];
+        $localisation = $_POST['localisation'];
+		
+        $message = "Nom : $nom, Prénom : $prenom, Email : $email, Localisation : $localisation";
+        return $message;
+    }
+    ob_start();
+    
+	$form_html = '<form method="post">
+		<label for="nom">Nom :</label>
+		<input type="text" name="nom" id="nom" required>
+
+		<label for="prenom">Prénom :</label>
+		<input type="text" name="prenom" id="prenom" required>
+
+		<label for="email">Email :</label>
+		<input type="email" name="email" id="email" required>
+
+		<label for="localisation">Localisation :</label>
+		<input type="text" name="localisation" id="localisation" required>
+
+		<input type="submit" name="submit" value="Envoyer">
+	</form>';
+
+	echo $form_html;
+
+    return ob_get_clean();
+}
+add_shortcode('shortcode_form', 'do_shortcode_form');
+
