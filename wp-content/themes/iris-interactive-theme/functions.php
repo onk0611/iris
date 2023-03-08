@@ -201,7 +201,7 @@ function do_shortcode_form() {
 			)
 		);
 
-        $message = "Nom : $nom, Prénom : $prenom, Email : $email, Localisation : $localisation";
+        $message = "Subscription sucessfull";
         return $message;
     }
     ob_start();
@@ -228,3 +228,39 @@ function do_shortcode_form() {
 }
 add_shortcode('shortcode_form', 'do_shortcode_form');
 
+function iris_get_form_data() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'form_data';
+	$results = $wpdb->get_results("SELECT * FROM $table_name");
+	echo '<div class="wrap"><h2>Ma Table Customisée</h2>';
+
+	if ($results) {
+		echo '<table class="wp-list-table widefat fixed striped">';
+		echo '<thead><tr>';
+		echo '<th>Nom</th><th>Prénom</th><th>Email</th><th>Localisation</th>';
+		echo '</tr></thead><tbody>';
+		foreach ($results as $row) {
+			echo '<tr>';
+			echo '<td>' . $row->nom . '</td>';
+			echo '<td>' . $row->prenom . '</td>';
+			echo '<td>' . $row->email . '</td>';
+			echo '<td>' . $row->localisation . '</td>';
+			echo '</tr>';
+		}
+		echo '</tbody></table>';
+	} else {
+		echo 'Aucune donnée pour le moment.';
+	}
+	echo '</div>';
+}
+
+function iris_custom_rubrique() {
+	add_menu_page(
+		'Formulaire', // titre de la page
+		'Formulaire', // titre du menu
+		'manage_options', // capacité requise pour voir la page
+		'iris-form', // identifiant unique de la page
+		'iris_get_form_data' // fonction d'affichage de la page
+	);
+}
+add_action('admin_menu', 'iris_custom_rubrique');
