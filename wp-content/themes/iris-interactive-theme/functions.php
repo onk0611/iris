@@ -182,7 +182,25 @@ function do_shortcode_form() {
         $prenom = $_POST['prenom'];
         $email = $_POST['email'];
         $localisation = $_POST['localisation'];
-		
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'form_data';
+		$wpdb->insert(
+			$table_name,
+			array(
+				'nom' => $nom,
+				'prenom' => $prenom,
+				'email' => $email,
+				'localisation' => $localisation
+			),
+			array(
+				'%s',
+				'%s',
+				'%s',
+				'%s'
+			)
+		);
+
         $message = "Nom : $nom, Prénom : $prenom, Email : $email, Localisation : $localisation";
         return $message;
     }
