@@ -207,16 +207,36 @@ function do_shortcode_form() {
     ob_start();
     
 	$form_html = '<form method="post">
-		<label for="nom">Nom :</label>
-		<input type="text" name="nom" id="nom" required>
-		<label for="prenom">Prénom :</label>
-		<input type="text" name="prenom" id="prenom" required>
-		<label for="email">Email :</label>
-		<input type="email" name="email" id="email" required>
-		<label for="localisation">Localisation :</label>
-		<input type="text" name="localisation" id="localisation" required>
-		<input type="submit" name="submit" value="Envoyer">
-	</form>';
+					<div class="mb-3 row">
+						<label for="nom" class="col-sm-2 col-form-label">Nom :</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="nom" id="nom" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label for="prenom" class="col-sm-2 col-form-label">Prénom :</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="prenom" id="prenom" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label for="email" class="col-sm-2 col-form-label">Email :</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" name="email" id="email" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label for="localisation" class="col-sm-2 col-form-label">Localisation :</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="localisation" id="localisation" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<div class="col-sm-10 offset-sm-2">
+							<input type="submit" name="submit" value="Envoyer" class="btn btn-primary">
+						</div>
+					</div>
+				<form>';
 
 	echo $form_html;
 

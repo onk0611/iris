@@ -64,6 +64,7 @@ endforeach;
 			<?php endfor; ?>
 		</script>
 		<?php
+		
 		if ( have_posts() ) :
 			/* Start the Loop */
 			while ( have_posts() ) :
