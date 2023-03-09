@@ -260,3 +260,4 @@ function iris_custom_rubrique() {
 	);
 }
 add_action('admin_menu', 'iris_custom_rubrique');
+
