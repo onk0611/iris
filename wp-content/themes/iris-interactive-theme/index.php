@@ -19,7 +19,6 @@ global $wpdb;
 $table_name = $wpdb->prefix . 'form_data';
 $results = $wpdb->get_results("SELECT * FROM $table_name");
 
-
 foreach ($results as $result) :
 
 	echo '<script>console.log("';
@@ -34,68 +33,54 @@ foreach ($results as $result) :
 	$latitude = $response['results'][0]['geometry']['location']['lat'];
 	$longitude = $response['results'][0]['geometry']['location']['lng'];
 
-	$lat = array();
+	$long[] = $longitude;
 	$lat[] = $latitude;
-
-	$lon = array();
-	$lon[] = $longitude;
-
-	echo '")</script>';
-
-endforeach;
-
 	?>
-		<div id='map' style='width: 400px; height: 300px;'></div>
+
+	var marker = new maplibregl.Marker()
+	.setLngLat([<?= $lon[0] ?>, <?= $lat[0] ?>])
+	.addTo(map);
+<?php 
+	echo '")</script>';
+endforeach;
+?>
+	<main id="primary" class="site-main">
+	<div id='map' style='width: 800px; height: 600px;'></div>
 		<script>
+
 		const key = '2QUsxFDsULg28uUyendX';
+		
 		var map = new maplibregl.Map({
 			container: 'map',
 			style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`, // stylesheet location
-			center: [<?= $lon[0] ?>, <?= $lat[0] ?>], // starting position [lng, lat]
-			zoom: 9 // starting zoom
+			center: [2.209666999999996, 46.232192999999995], // starting position [lng, lat]
+			zoom: 5 // starting zoom
 		});
+
+			<?php for ($i = 0; $i < count($long); $i++) : ?>
+				var marker = new maplibregl.Marker()
+					.setLngLat([<?= $long[$i] ?>, <?= $lat[$i] ?>])
+					.addTo(map);
+			<?php endfor; ?>
 		</script>
-	<?php 
-
-
-?>
-	<main id="primary" class="site-main">
-
 		<?php
 		if ( have_posts() ) :
-
-			if ( is_home() && ! is_front_page() ) :
-				?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-				<?php
-			endif;
-
 			/* Start the Loop */
 			while ( have_posts() ) :
 				the_post();
-
 				/*
 				 * Include the Post-Type-specific template for the content.
 				 * If you want to override this in a child theme, then include a file
 				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
 				 */
 				get_template_part( 'template-parts/content', get_post_type() );
-
 			endwhile;
-
 			// the_posts_navigation();
-
 		else :
-
 			get_template_part( 'template-parts/content', 'none' );
-
 		endif;
 		?>
-
 	</main><!-- #main -->
-
 <?php
 // get_sidebar();
 // get_footer();
