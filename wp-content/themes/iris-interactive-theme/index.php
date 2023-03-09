@@ -41,16 +41,17 @@ foreach ($results as $result) :
 	$lon[] = $longitude;
 
 	echo '")</script>';
-	var_dump($lat, "____", $lon);
+
 endforeach;
 
 	?>
 		<div id='map' style='width: 400px; height: 300px;'></div>
 		<script>
+		const key = '2QUsxFDsULg28uUyendX';
 		var map = new maplibregl.Map({
 			container: 'map',
-			style: 'https://demotiles.maplibre.org/style.json', // stylesheet location
-			center: [<?= $lon ?>, <?= $lat ?>], // starting position [lng, lat]
+			style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`, // stylesheet location
+			center: [<?= $lon[0] ?>, <?= $lat[0] ?>], // starting position [lng, lat]
 			zoom: 9 // starting zoom
 		});
 		</script>
