@@ -281,3 +281,18 @@ function iris_custom_rubrique() {
 }
 add_action('admin_menu', 'iris_custom_rubrique');
 
+function iris_get_all_api() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'form_data';
+
+    register_rest_route( 'api/v1', '/get_all', array(
+        'methods' => 'GET',
+        'callback' => function () use ($table_name, $wpdb) {
+            $query = "SELECT * FROM $table_name";
+            $results = $wpdb->get_results($query, ARRAY_A);
+
+            return $results;
+        },
+    ) );
+}
+add_action( 'rest_api_init', 'iris_get_all_api' );
