@@ -248,7 +248,7 @@ function iris_get_form_data() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'form_data';
 	$results = $wpdb->get_results("SELECT * FROM $table_name");
-	echo '<div class="wrap"><h2>Ma Table Customisée</h2>';
+	echo '<div class="wrap"><h2>Localisation</h2>';
 
 	if ($results) {
 		echo '<table class="wp-list-table widefat fixed striped">';
@@ -272,8 +272,8 @@ function iris_get_form_data() {
 
 function iris_custom_rubrique() {
 	add_menu_page(
-		'Formulaire', // titre de la page
-		'Formulaire', // titre du menu
+		'Localisation', // titre de la page
+		'Localisation', // titre du menu
 		'manage_options', // capacité requise pour voir la page
 		'iris-form', // identifiant unique de la page
 		'iris_get_form_data' // fonction d'affichage de la page
